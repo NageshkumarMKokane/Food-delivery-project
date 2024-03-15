@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Your CSS styles go here */
+        /* Reset default styles */
+        body, ul, li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .navbar {
+            background-color: #dfdf0fd8;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-item {
+            text-decoration: none;
+            color: white;
+            margin: 0 15px;
+            transition: 0.3s;
+        }
+        
+        .nav-item:hover {
+            color: #ff8800;
+        }
+
+        /* Hero Section Styles */
+        .hero {
+            text-align: center;
+            padding: 40px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+        }
+
+        /* Menu Item Styles */
+        .menu-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .menu-item {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            transition: transform 0.3s;
+            cursor: pointer;
+            min-width: 300px;
+        }
+
+        .menu-item img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .menu-item h2 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .menu-item p {
+            font-size: 16px;
+            color: #777;
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #ff6600;
+        }
+
+        .order-button {
+            background-color: #ff6600;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .order-button:hover {
+            background-color: #ff8800;
+        }
+
+        .menu-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Slide-in Cart Sidebar Styles */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px; /* Initially hidden */
+            width: 300px;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            transition: right 0.3s;
+        }
+
+        .cart-sidebar.open {
+            right: 0; /* Visible */
+        }
+
+        .cart-sidebar h2 {
+            font-size: 24px;
+            margin: 20px;
+            color: #333;
+        }
+
+        .cart-total {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6600;
+            margin: 20px;
+        }
+
+        .cart-list {
+            list-style: none;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .cart-item img {
+            max-width: 60px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .cart-item .item-details {
+            flex: 1;
+        }
+
+        .remove-button {
+            background-color: #ff0000;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .remove-button:hover {
+            background-color: #ff3333;
+        }
+
+        .cart-list-empty {
+            display: none;
+        }
+
+        .payment-button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            text-decoration: none;
+            cursor: pointer;
+            margin: 20px;
+            display: block;
+        }
+
+        .payment-button:hover {
+            background-color: #45a049;
+        }
+        .hero {
+            background-image: url('https://img.freepik.com/free-photo/fast-food-dish-blue_155003-27518.jpg?size=626&ext=jpg&ga=GA1.1.826777610.1697108958&semt=ais');
+            background-size: cover;
+            background-attachment: fixed; /* This ensures the background image remains fixed while scrolling */
+            background-position: center;
+            color: #000000;
+            text-align: center;
+            padding: 4rem 0;
+            position: relative; /* Add this property */
+            overflow: hidden;
+        }
+        
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 2rem;
+        }
+        
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="navbar">
+            <img src="images\flogo.png" alt="logo">
+            <ul class="nav-links">
+                <li><a href="Index.html" class="nav-item">Home</a></li>
+                <li><a href="addtocart1.html" class="nav-item">Menu</a></li>
+                <li><a href="about.html" class="nav-item">About</a></li>
+                <li><a href="contact.html" class="nav-item">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="cover">
+        <section id="home" class="hero">
+            <h1>Menu</h1>
+            <section class="menu-list">
+                <div class="menu-item">
+                    <img src="images\burger.jpeg" alt="Burger">
+                    <h2>Burger</h2>
+                    <p>A classic burger with lettuce, tomato, and cheese.</p>
+                    <p class="price">₹99</p>
+                    <button class="order-button" onclick="addToCart('Burger', 99, 'burger.jpeg')">Order Now</button>
+                </div>
+                <div class="menu-item">
+                    <img src="images\pizza.jpeg" alt="Pizza">
+                    <h2>Pizza</h2>
+                    <p>Delicious pizza with your choice of toppings.</p>
+                    <p class="price">₹199</p>
+                    <button class="order-button" onclick="addToCart('Pizza', 199, 'pizza.jpeg')">Order Now</button>
+                </div>
+                <div class="menu-item">
+                    <img src="images\pasta.jpeg" alt="Pasta">
+                    <h2>Pasta</h2>
+                    <p>Spaghetti with marinara sauce and meatballs.</p>
+                    <p class="price">₹149</p>
+                    <button class="order-button" onclick="addToCart('Pasta', 149, 'pasta.jpeg')">Order Now</button>
+                </div>
+                <div class="menu-item">
+                    <img src="images\sushi.jpeg" alt="Sushi">
+                    <h2>Sushi</h2>
+                    <p>Fresh and delicious sushi rolls with various fillings.</p>
+                    <p class="price">₹299</p>
+                    <button class="order-button" onclick="addToCart('Sushi', 299, 'sushi.jpeg')">Order Now</button>
+                </div>
+                <div class="menu-item">
+                    <img src="images\salad.jpeg" alt="Salad">
+                    <h2>Salad</h2>
+                    <p>Fresh garden salad with a choice of dressings.</p>
+                    <p class="price">₹195</p>
+                    <button class="order-button" onclick="addToCart('Salad', 195, 'salad.jpeg')">Order Now</button>
+                </div>
+                <div class="menu-item">
+                    <img src="images\steak.jpeg" alt="Steak">
+                    <h2>Steak</h2>
+                    <p>Juicy and tender steak cooked to perfection.</p>
+                    <p class="price">₹499</p>
+                    <button class="order-button" onclick="addToCart('Steak', 499, 'steak.jpeg')">Order Now</button>
+                </div>
+                <div class="menu-item">
+                    <img src="images\biryani.jpeg" alt="Biryani">
+                    <h2>Biryani</h2>
+                    <p>A flavorful South Asian rice dish cooked with aromatic spices, herbs, and a choice of meat or vegetables.</p>
+                    <p class="price">₹299</p>
+                    <button class="order-button" onclick="addToCart('Biryani', 299, 'biryani.jpeg')">Order Now</button>
+                </div>
+                <div class="menu-item">
+                    <img src="images\chokiceream.jpeg" alt="Chocolate Ice Cream">
+                    <h2>Chocolate Ice Cream</h2>
+                    <p>Chocolate ice cream is a rich and creamy frozen dessert with a delectable cocoa flavor.</p>
+                    <p class="price">₹99</p>
+                    <button class="order-button" onclick="addToCart('Chocolate Ice Cream', 99, 'chokiceream.jpeg')">Order Now</button>
+                </div>
+                <div class="menu-item">
+                    <img src="images\chokolava.jpeg" alt="Chocolate Lava Cake">
+                    <h2>Chocolate Lava Cake</h2>
+                    <p>Chocolate lava cake is a decadent dessert with a molten, gooey chocolate center, typically served warm and topped with a dusting of powdered sugar or a scoop of ice cream.</p>
+                    <p class="price">₹249</p>
+                    <button class="order-button" onclick="addToCart('Chocolate lava cake', 249, 'chokolava.jpeg')">Order Now</button>
+                </div>
+                <div class="menu-item">
+                    <img src="images\curry.jpeg" alt="Curry">
+                    <h2>Curry</h2>
+                    <p>Curry is a diverse and flavorful dish made with a combination of spices, vegetables, meat, or seafood, often served in a savory sauce and typically accompanied by rice or bread.</p>
+                    <p class="price">₹299</p>
+                    <button class="order-button" onclick="addToCart('Curry', 299, 'curry.jpeg')">Order Now</button>
+                </div>
+                <div class="menu-item">
+                    <img src="images\pizza.jpeg" alt="Pizza">
+                    <h2>BURRATA CHEEZE Pizza</h2>
+                    <p>Delicious pizza with your choice of toppings.</p>
+                    <p class="price">₹499</p>
+                    <button class="order-button" onclick="addToCart(' BURRATA CHEEZE Pizza', 499, 'pizza.jpeg')">Order Now</button>
+                </div>
+            </section>
+        </section>
+    </div>
+
+    <div class="cart-sidebar" id="cart-sidebar">
+        <h2>Shopping Cart</h2>
+        <ul class="cart-list" id="cart-items">
+            <!-- Cart items will be displayed here dynamically -->
+        </ul>
+        <p>Total: ₹<span class="cart-total" id="cart-total">0.00</span></p>
+        <a href="payment.html" class="payment-button">Proceed to Payment</a>
+    </div>
+
+    <script>
+        const cartItems = [];
+        const cartTotal = document.getElementById("cart-total");
+        const cartList = document.getElementById("cart-items");
+        const cartSidebar = document.getElementById("cart-sidebar");
+
+        function addToCart(itemName, itemPrice, itemImage) {
+            cartItems.push({ name: itemName, price: itemPrice, image: itemImage });
+            updateCart();
+            cartSidebar.classList.add("open");
+        }
+
+        function removeFromCart(index) {
+            cartItems.splice(index, 1);
+            updateCart();
+
+            if (cartItems.length === 0) {
+                cartSidebar.classList.remove("open");
+            }
+        }
+
+        function updateCart() {
+            cartList.innerHTML = "";
+            let total = 0;
+
+            cartItems.forEach((item, index) => {
+                const listItem = document.createElement("li");
+                listItem.className = "cart-item";
+                listItem.innerHTML = `
+                    <img src="images/${item.image}" alt="${item.name}">
+                    <div class="item-details">
+                        <span>${item.name}</span>
+                        <span>₹${item.price.toFixed(2)}</span>
+                    </div>
+                    <button class="remove-button" onclick="removeFromCart(${index})">Remove</button>
+                `;
+                cartList.appendChild(listItem);
+                total += item.price;
+            });
+
+            cartTotal.innerText = `₹${total.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

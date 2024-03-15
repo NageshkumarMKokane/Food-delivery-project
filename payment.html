@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+
+    <style>
+        /* Your CSS styles go here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        .payment-form {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .payment-method {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 150px;
+            transition: transform 0.2s;
+        }
+
+        .payment-method:hover {
+            background-color: #f2f2f2;
+            transform: scale(1.05);
+        }
+
+        .payment-method img {
+            max-width: 80px;
+            margin: 10px 0;
+        }
+
+        #payment-details {
+            display: none;
+        }
+
+        .payment-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .payment-form button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            text-decoration: none;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+
+        .payment-form button:hover {
+            background-color: #45a049;
+        }
+
+        .qr-code {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-form">
+        <h1>Choose Payment Method</h1>
+        <div class="payment-methods">
+            <div class="payment-method" onclick="showPaymentDetails('credit-card')">
+                <img src="images/credit.jpeg" alt="Credit Card">
+                Credit Card
+            </div>
+            <div class="payment-method" onclick="showPaymentDetails('paypal')">
+                <img src="images/paypal.png" alt="PayPal">
+                PayPal
+            </div>
+            <div class="payment-method" onclick="showPaymentDetails('apple-pay')">
+                <img src="images/applepay.png" alt="Apple Pay">
+                Apple Pay
+            </div>
+            <div class="payment-method" onclick="showPaymentDetails('google-pay')">
+                <img src="images/gpay.png" alt="Google Pay">
+                Google Pay
+            </div>
+            <div class="payment-method" onclick="showPaymentDetails('amazon-pay')">
+                <img src="images/amazonpay.jpeg" alt="Amazon Pay">
+                Amazon Pay
+            </div>
+        </div>
+        <div id="payment-details">
+            <!-- Payment details form will go here -->
+        </div>
+        <div class="qr-code" id="qr-code">
+            <!-- QR code for payment will go here -->
+        </div>
+    </div>
+
+    <div class="popup" id="success-popup">
+        <h2>Payment Successful</h2>
+        <p>Thank you for ordering food from our website!</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <script src="qrcode.min.js"></script>
+    <script>
+        function showPaymentDetails(method) {
+            const paymentDetails = document.getElementById('payment-details');
+            const qrCode = document.getElementById('qr-code');
+            paymentDetails.innerHTML = '';
+            qrCode.innerHTML = '';
+
+            if (method === 'credit-card') {
+                // Implement credit card payment form
+                paymentDetails.innerHTML = `
+                    <h2>Enter Credit Card Information</h2>
+                    <form id="credit-card-form">
+                        <input type="text" placeholder="Card Number" name="cardNumber" required>
+                        <input type="text" placeholder="Cardholder Name" name="cardholderName" required>
+                        <input type="text" placeholder="Expiration Date (MM/YY)" name="expiration" required>
+                        <input type="text" placeholder="CVV" name="cvv" required>
+                        <button type="button" onclick="processPayment()">Pay Now</button>
+                    </form>
+                `;
+            } else if (method === 'paypal') {
+                // Implement PayPal payment form (Placeholder)
+                paymentDetails.innerHTML = `
+                    <h2>Pay with PayPal</h2>
+                    <form id="paypal-form">
+                        <input type="email" placeholder="PayPal Email" name="paypalEmail" required>
+                        <input type="text" placeholder="Amount" name="amount" required>
+                        <button type="button" onclick="generateQRCode('https://www.paypal.com')">Generate QR Code</button>
+                    </form>
+                `;
+            } else if (method === 'apple-pay') {
+                // Implement Apple Pay integration (Placeholder)
+                paymentDetails.innerHTML = `
+                    <h2>Pay with Apple Pay</h2>
+                    <form id="apple-pay-form">
+                        <input type="text" placeholder="Apple Pay ID" name="applePayId" required>
+                        <input type="text" placeholder="Amount" name="amount" required>
+                        <button type="button" onclick="generateQRCode('apple-pay://')">Generate QR Code</button>
+                    </form>
+                `;
+            } else if (method === 'google-pay') {
+                // Implement Google Pay integration (Placeholder)
+                paymentDetails.innerHTML = `
+                    <h2>Pay with Google Pay</h2>
+                    <form id="google-pay-form">
+                        <input type="email" placeholder="Google Pay No" name="googlePayEmail" required>
+                        <input type="text" placeholder="Amount" name="amount" required>
+                        <button type="button" onclick="generateQRCode('https://pay.google.com')">Generate QR Code</button>
+                    </form>
+                `;
+            } else if (method === 'amazon-pay') {
+                // Implement Amazon Pay integration (Placeholder)
+                paymentDetails.innerHTML = `
+                    <h2>Pay with Amazon Pay</h2>
+                    <form id="amazon-pay-form">
+                        <input type="email" placeholder="Amazon Pay No" name="amazonPayNO" required>
+                        <input type="text" placeholder="Amount" name="amount" required>
+                        <button type="button" onclick="generateQRCode('https://www.amazon.com')">Generate QR Code</button>
+                    </form>
+                `;
+            }
+
+            paymentDetails.style.display = 'block';
+        }
+
+        function generateQRCode(content) {
+            const qrCode = new QRCode(document.getElementById('qr-code'), {
+                text: content,
+                width: 128,
+                height: 128
+            });
+            qrCode.makeCode(content);
+            qrCode._el.style.display = 'block';
+
+            // After 10 seconds, show the success popup
+            setTimeout(function () {
+                const popup = document.getElementById('success-popup');
+                popup.style.display = 'block';
+            }, 10000);
+        }
+
+        function processPayment() {
+            // Implement payment processing logic here
+            // For demonstration, show a confirmation popup
+            const popup = document.getElementById('success-popup');
+            popup.style.display = 'block';
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('success-popup');
+            popup.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
